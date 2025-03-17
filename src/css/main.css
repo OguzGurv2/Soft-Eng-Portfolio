@@ -146,7 +146,7 @@ li {
 .cta.secondary {
   background-color: transparent;
   border: 1px solid var(--grey-4);
-  width: 114px;
+  width: 115px;
 }
 
 .cta.secondary > span {
@@ -482,6 +482,8 @@ section .project-container {
   width: 100%;
   line-height: 1.2em;
   transition: all 150ms;
+  cursor: pointer;
+  transition: all 300ms;
 }
 
 #contact form input::placeholder,
@@ -500,6 +502,10 @@ section .project-container {
 
 #contact form input:focus {
   border: 1px solid var(--grey-5);
+}
+
+#contact form button:active {
+  background-color: var(--grey-1);
 }
 
 #follow .social-links {
