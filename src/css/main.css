@@ -274,14 +274,12 @@ li {
 .input-line span {
   font-size: 14px;
   margin-right: 8.5px;
-  color: var(--white);
 }
 
 #terminal-input {
   font-size: 14px;
   background: none;
   border: none;
-  color: var(--white);
   font-family: monospace;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -564,4 +562,21 @@ section .project-container {
     border: 1px solid #292929;
     box-shadow: 0 0px 40px #29292900;
   }
+}
+
+@media (max-width: 768px) {
+  #projects .project-container .project .row .project-text .project_description {
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    line-height: normal;
+    font-size: 12px !important;
+  }
+
+
+  #projects .project-container .project .row .project-text .project_title {
+    font-size: 16px;
+  }
+  
 }

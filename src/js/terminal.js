@@ -3,20 +3,21 @@ export class Terminal {
       this.terminalOutput = document.getElementById("terminal-output");
       this.terminalInput = document.getElementById("terminal-input");
       this.terminalInputLine = document.querySelector(".input-line");
+      this.terminalBody = document.querySelector(".terminal-body");
   
       this.promptColor = "white";
       this.isFirstLoad = true;
   
       this.commands = {
-        whoami: "OguzGur",
-        projects: "- proj1\n- proj2\n- proj3",
-        help: "Available commands: whoami, projects, clear, ascii, color [green|white|pink], help",
+        whoami: "I am a chill guy who's into computers.",
+        projects: this.navigateToProjects.bind(this),
+        help: "Available commands: whoami, projects, clear, color [green|white|red], help",
         clear: this.clearTerminal.bind(this),
-        ascii: this.displayAsciiArt.bind(this),
         color: this.changePromptColor.bind(this),
       };
-  
+      
       // Bind the input event listener
+      this.terminalInput.style.color = this.promptColor;
       this.terminalInput.addEventListener("keydown", this.handleInput.bind(this));
     }
   
@@ -24,8 +25,8 @@ export class Terminal {
     handleInput(event) {
       if (event.key === "Enter") {
         const input = this.terminalInput.value.trim();
-        this.terminalOutput.innerHTML += `<div style="color: ${this.promptColor}">root@oguzgur.com ~ % ${input}</div>`;
-  
+        this.terminalOutput.innerHTML += `<div>root@oguzgur.com ~ % ${input}</div>`;
+        
         const output = this.executeCommand(input);
         if (output) this.terminalOutput.innerHTML += `<div>${output}</div>`;
   
@@ -45,6 +46,12 @@ export class Terminal {
         return `Command not found: ${input}`;
       }
     }
+
+    //Navigates to Projects
+    navigateToProjects() {
+      window.location.href = "#projects";
+      return `Navigated to projects`;
+    }
   
     // Clears the terminal output
     clearTerminal() {
@@ -54,19 +61,18 @@ export class Terminal {
   
     // Changes the prompt color
     changePromptColor(color) {
-      const validColors = ["green", "white", "pink"];
+      const validColors = ["green", "white", "red"];
       if (validColors.includes(color)) {
         this.promptColor = color;
+        this.terminalBody.style.color = this.promptColor;
+        this.terminalInputLine.style.color = this.promptColor;
+        this.terminalInput.style.color = this.promptColor;
+    
         return `Prompt color changed to ${color}`;
       } else {
         return `Invalid color. Available options: ${validColors.join(", ")}`;
       }
-    }
-  
-    // Displays ASCII art
-    displayAsciiArt() {
-      return `ASCII Art Placeholder`; // Replace with actual ASCII
-    }
+    }    
   
     // Simulates typing effect for initial load
     typeEffect(text, callback) {
