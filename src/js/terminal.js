@@ -14,7 +14,7 @@ export class Terminal {
       // Initialize commands
       this.commands = {
         help: "Available commands: whoami, projects, clear, color [green|white|red], game [ping-pong], help",
-        whoami: "I am a chill guy who's into programming...",
+        whoami: this.navigateToAbout.bind(this),
         projects: this.navigateToProjects.bind(this),
         clear: this.clearTerminal.bind(this),
         color: this.changePromptColor.bind(this),
@@ -77,6 +77,12 @@ export class Terminal {
     navigateToProjects() {
       window.location.href = "#projects";
       return `Navigated to projects`;
+    }
+
+    //Navigates to About
+    navigateToAbout() {
+      window.location.href = "#about";
+      return `Navigated to about`;
     }
   
     // Clears the terminal output
