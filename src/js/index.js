@@ -61,7 +61,7 @@ function initializeProjects() {
 }
 
 function attachEventListeners() {
-  el.terminal.start();
+  el.terminal.init();
   el.copyEmailBtn.addEventListener("click", (e) => copyEmail(e));
 
   el.navIcons.forEach((link) => {
