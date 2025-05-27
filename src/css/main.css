@@ -262,6 +262,10 @@ li {
   line-height: 1.7;
 }
 
+.terminal-body::-webkit-scrollbar {
+  display: none;
+}
+
 #terminal-output {
   white-space: pre-wrap;
 }

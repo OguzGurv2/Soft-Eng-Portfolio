@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong</title>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #000;
+        overflow: hidden;
+    }
+    canvas {
+        width: 800px;
+        max-width: 99%;
+        height: 400px;
+        max-height: 99%;
+        border: 1px solid #fff;
+        z-index: 0;
+    }
+    div {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        z-index: 1;
+    }
+    div.rounds-selector {
+        margin-bottom: 125px;
+    }
+    button {
+        width: 100px;
+        height: 40px;
+        background-color: #111;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, scale 0.2s;
+    }
+    button:hover {
+        background-color: #333;
+        transform: scale(1.1);
+    }
+    button:active {
+        background-color: #555;
+    }
+    button.selected {
+        color: #008000;
+        border: 2px solid #008000;
+    }
+    button#start-game {
+        margin-top: 125px;
+    }
+    .winner-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #fff;
+        font-size: 24px;
+        flex-direction: column;
+        align-items: center;
+    }
+    @media (max-width: 600px) {
+        button {
+            width: 80px;
+            height: 35px;
+            font-size: 14px;
+        }
+    }
+</style>
+<script>
+    class Game {
+        constructor(canvas, difficulty = 'easy', rounds) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.canvas.width = 800;
+            this.canvas.height = 400;
+            this.playerPaddle = new Paddle(10, (this.canvas.height - 75) / 2, 10, 75);
+            this.computerPaddle = new Paddle(this.canvas.width - 20, (this.canvas.height - 75) / 2, 10, 75);
+            this.playerScore = 0;
+            this.computerScore = 0;
+            this.comboStreak = 0;
+            this.maxStreak = 15;
+            this.lastTime = 0;
+            this.difficulty = difficulty;
+            this.rounds = rounds;
+            this.gameOver = false;
+
+            this.setDifficulty();
+            this.ball = new Ball(this.canvas.width / 2, this.canvas.height / 2, 5, this.difficulty);
+
+            document.addEventListener('mousemove', (e) => this.mouseMoveHandler(e));
+            document.addEventListener('keydown', (e) => this.keyDownHandler(e));
+            this.addTouchEvents();
+        }
+
+        setDifficulty() {
+            switch (this.difficulty) {
+                case 'hard':
+                    this.computerSpeed = 0.1;
+                    break;
+                case 'medium':
+                    this.computerSpeed = 0.07;
+                    break;
+                default: // easy
+                    this.computerSpeed = 0.06;
+                    break;
+            }
+        }
+
+        mouseMoveHandler(e) {
+            const relativeY = e.clientY - this.canvas.getBoundingClientRect().top;
+            this.movePaddle(relativeY);
+        }
+
+        addTouchEvents() {
+            let startY = null;
+
+            this.canvas.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            startY = touch.clientY;
+            });
+
+            this.canvas.addEventListener('touchmove', (e) => {
+            if (startY !== null) {
+                const touch = e.touches[0];
+                const deltaY = touch.clientY - startY;
+                this.playerPaddle.y += deltaY;
+
+                // Ensure paddle stays within canvas bounds
+                if (this.playerPaddle.y < 0) {
+                this.playerPaddle.y = 0;
+                } else if (this.playerPaddle.y + this.playerPaddle.height > this.canvas.height) {
+                this.playerPaddle.y = this.canvas.height - this.playerPaddle.height;
+                }
+
+                startY = touch.clientY; // Update startY for the next move
+            }
+            });
+
+            this.canvas.addEventListener('touchend', () => {
+            startY = null;
+            });
+        }
+
+        movePaddle(relativeY) {
+            const paddleHalfHeight = this.playerPaddle.height / 2;
+            if (relativeY - paddleHalfHeight >= 0 && relativeY + paddleHalfHeight <= this.canvas.height) {
+                this.playerPaddle.y = relativeY - paddleHalfHeight;
+            } else if (relativeY - paddleHalfHeight < 0) {
+                this.playerPaddle.y = 0;
+            } else if (relativeY + paddleHalfHeight > this.canvas.height) {
+                this.playerPaddle.y = this.canvas.height - this.playerPaddle.height;
+            }
+        }
+
+        keyDownHandler(e) {
+            if (e.key === 'r' || e.key === 'R') {
+                this.resetGame();
+            }
+        }
+
+        resetGame() {
+            this.playerScore = 0;
+            this.computerScore = 0;
+            this.comboStreak = 0;
+            this.ball.reset(this.canvas.width / 2, this.canvas.height / 2, this.initialBallDx, this.initialBallDy);
+            this.playerPaddle.reset(10, (this.canvas.height - 75) / 2);
+            this.computerPaddle.reset(this.canvas.width - 20, (this.canvas.height - 75) / 2);
+            this.gameOver = false;
+        }
+
+        drawScore() {
+            this.ctx.font = '16px Arial';
+            this.ctx.fillStyle = '#008000';
+            this.ctx.fillText(`Player: ${this.playerScore}`, 8, 20);
+            this.ctx.fillText(`Computer: ${this.computerScore}`, this.canvas.width - 100, 20);
+            this.ctx.fillText(`Combo Streak: ${this.comboStreak}`, this.canvas.width / 2 - 50, 40);
+            this.ctx.fillText(`Rounds: ${this.playerScore + this.computerScore + 1}/${this.rounds}`, this.canvas.width / 2 - 50, 20);
+        }
+
+        checkRoundWinner() {
+            if (this.playerScore + this.computerScore >= this.rounds) {
+                this.gameOver = true;
+                this.displayWinner();
+            }
+        }
+
+        displayWinner() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            const winnerMessage = document.createElement('div');
+            winnerMessage.classList.add('winner-message');
+            if (this.playerScore > this.computerScore) {
+                winnerMessage.innerHTML = `
+                    <p>You won!</p>
+                    <button id="restart-game">Restart</button>
+                `;
+            } else {
+                winnerMessage.innerHTML = `
+                    <p>Computer wins the game!</p>
+                    <button id="restart-game">Restart</button>
+                `;
+            }
+            document.body.appendChild(winnerMessage);
+
+            document.getElementById('restart-game').addEventListener('click', () => {
+                document.body.removeChild(winnerMessage);
+                location.reload(); // Reload the page to show the opening screen
+            });
+        }
+
+        update(deltaTime) {
+            if (this.gameOver) return;
+
+            this.ball.update(this.canvas, this.playerPaddle, this.computerPaddle, this.comboStreak, () => {
+                this.computerScore++;
+                this.comboStreak = 0; // Reset streak on computer score
+                this.checkRoundWinner();
+            }, () => {
+                this.playerScore++;
+                this.comboStreak = 0; // Reset streak on player score
+                this.checkRoundWinner();
+            }, () => {
+                this.comboStreak = Math.min(this.comboStreak + 1, this.maxStreak); // Increment streak up to max
+            });
+
+            // Adjust computer paddle speed based on difficulty
+            this.computerPaddle.y += (this.ball.y - (this.computerPaddle.y + this.computerPaddle.height / 2)) * this.computerSpeed;
+            if (this.computerPaddle.y < 0) {
+                this.computerPaddle.y = 0;
+            } else if (this.computerPaddle.y + this.computerPaddle.height > this.canvas.height) {
+                this.computerPaddle.y = this.canvas.height - this.computerPaddle.height;
+            }
+        }
+
+        draw() {
+            if (this.gameOver) return;
+
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ball.draw(this.ctx);
+            this.playerPaddle.draw(this.ctx);
+            this.computerPaddle.draw(this.ctx);
+            this.drawScore();
+        }
+
+        gameLoop(timestamp) {
+            const deltaTime = timestamp - this.lastTime;
+            this.lastTime = timestamp;
+
+            this.update(deltaTime);
+            this.draw();
+
+            if (!this.gameOver) {
+                requestAnimationFrame((t) => this.gameLoop(t));
+            }
+        }
+
+        start() {
+            this.resetGame();
+            this.lastTime = 0;
+            requestAnimationFrame((t) => this.gameLoop(t));
+        }
+    }
+
+    class Ball {
+        constructor(x, y, radius, difficulty) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.difficulty = difficulty;
+
+            if (this.difficulty === 'hard') {
+                this.dx = this.dx > 0 ? 4 : -4;
+                this.dy = this.dy > 0 ? 4 : -4;
+            } else if (this.difficulty === 'medium') {
+                this.dx = this.dx > 0 ? 3 : -3;
+                this.dy = this.dy > 0 ? 3 : -3;
+            } else { // easy
+                this.dx = this.dx > 0 ? 2 : -2;
+                this.dy = this.dy > 0 ? 2 : -2;
+            }
+        }
+
+        reset(x, y, scorer) {
+            this.x = x;
+            this.y = y;
+
+            if (scorer === "playerScore") {
+                this.dx = -Math.abs(this.dx); // Ball moves towards the computer
+            } else if (scorer === "computerScore") {
+                this.dx = Math.abs(this.dx); // Ball moves towards the player
+            }
+
+            // Adjust speed based on difficulty
+            if (this.difficulty === 'hard') {
+                this.dx = this.dx > 0 ? 4 : -4;
+                this.dy = this.dy > 0 ? 4 : -4;
+            } else if (this.difficulty === 'medium') {
+                this.dx = this.dx > 0 ? 3 : -3;
+                this.dy = this.dy > 0 ? 3 : -3;
+            } else { // easy
+                this.dx = this.dx > 0 ? 2 : -2;
+                this.dy = this.dy > 0 ? 2 : -2;
+            }
+        }
+
+        update(canvas, playerPaddle, computerPaddle, comboStreak, onComputerScore, onPlayerScore, onComboHit) {
+            this.x += this.dx;
+            this.y += this.dy;
+
+            if (this.y + this.dy > canvas.height - this.radius || this.y + this.dy < this.radius) {
+                this.dy = -this.dy;
+            }
+
+            if (this.x - this.radius < playerPaddle.x + playerPaddle.width &&
+                this.y > playerPaddle.y &&
+                this.y < playerPaddle.y + playerPaddle.height) {
+                const hitPosition = (this.y - playerPaddle.y) / playerPaddle.height;
+                this.dy = (hitPosition - 0.5) * 8; // Adjust vertical direction based on hit position
+                this.dx = -this.dx * (comboStreak < 15 ? 1.1 : 1); // Increase speed until max streak
+                onComboHit();
+            }
+
+            if (this.x + this.radius > computerPaddle.x &&
+                this.y > computerPaddle.y &&
+                this.y < computerPaddle.y + computerPaddle.height) {
+                const hitPosition = (this.y - computerPaddle.y) / computerPaddle.height;
+                this.dy = (hitPosition - 0.5) * 8; // Adjust vertical direction based on hit position
+                this.dx = -this.dx * (comboStreak < 15 ? 1.1 : 1);
+                onComboHit();
+            }
+
+            if (this.x + this.dx > canvas.width - this.radius) {
+                onPlayerScore();
+                this.reset(canvas.width / 2, canvas.height / 2, "playerScore");
+            }
+
+            if (this.x + this.dx < this.radius) {
+                onComputerScore();
+                this.reset(canvas.width / 2, canvas.height / 2, "computerScore");
+            }
+        }
+
+        draw(ctx) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+    class Paddle {
+        constructor(x, y, width, height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        reset(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        draw(ctx) {
+            ctx.beginPath();
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+    const canvas = document.querySelector('canvas');
+
+    // Create difficulty selector
+    const difficultySelector = document.createElement('div');
+    difficultySelector.innerHTML = `
+        <button id="easy" class="selected">Easy</button>
+        <button id="medium">Medium</button>
+        <button id="hard">Hard</button>
+    `;
+
+    // Create rounds selector
+    const roundsSelector = document.createElement('div');
+    roundsSelector.classList.add('rounds-selector');
+    roundsSelector.innerHTML = `
+        <button id="rounds-5" class="round-selection selected">5 Rounds</button>
+        <button id="rounds-7" class="round-selection">7 Rounds</button>
+        <button id="rounds-9" class="round-selection">9 Rounds</button>
+    `;
+
+    // Create start button
+    const startButton = document.createElement('div');
+    startButton.innerHTML = `
+    <button id=start-game>Start Game</button>
+    `;
+
+    // Insert selectors and start button into the DOM
+    document.body.insertBefore(difficultySelector, canvas);
+    document.body.insertBefore(roundsSelector, difficultySelector);
+    document.body.insertBefore(startButton, roundsSelector);
+
+    // Default selected rounds and difficulty
+    let selectedRounds = 5;
+    let selectedDifficulty = "easy";
+    const getRounds = document.querySelectorAll('.round-selection');
+
+    // Event listeners for rounds selection
+    document.getElementById('rounds-5').addEventListener('click', (e) => {
+        selectedRounds = 5;
+        getRounds.forEach(button => button.classList.remove('selected'));
+        e.target.classList.add('selected');
+        console.log(`Selected Rounds: ${selectedRounds}`);
+        checkStartButtonState();
+    });
+
+    document.getElementById('rounds-7').addEventListener('click', (e) => {
+        selectedRounds = 7;
+        getRounds.forEach(button => button.classList.remove('selected'));
+        e.target.classList.add('selected');
+        console.log(`Selected Rounds: ${selectedRounds}`);
+        checkStartButtonState();
+    });
+
+    document.getElementById('rounds-9').addEventListener('click', (e) => {
+        selectedRounds = 9;
+        getRounds.forEach(button => button.classList.remove('selected'));
+        e.target.classList.add('selected');
+        console.log(`Selected Rounds: ${selectedRounds}`);
+        checkStartButtonState();
+    });
+
+    // Event listeners for difficulty selection
+    document.getElementById('easy').addEventListener('click', (e) => {
+        selectedDifficulty = 'easy';
+        updateDifficultySelection(e.target);
+        console.log(`Selected Difficulty: ${selectedDifficulty}`);
+        checkStartButtonState();
+    });
+
+    document.getElementById('medium').addEventListener('click', (e) => {
+        selectedDifficulty = 'medium';
+        updateDifficultySelection(e.target);
+        console.log(`Selected Difficulty: ${selectedDifficulty}`);
+        checkStartButtonState();
+    });
+
+    document.getElementById('hard').addEventListener('click', (e) => {
+        selectedDifficulty = 'hard';
+        updateDifficultySelection(e.target);
+        console.log(`Selected Difficulty: ${selectedDifficulty}`);
+        checkStartButtonState();
+    });
+
+    // Start button event listener
+    startButton.addEventListener('click', () => {
+        if (selectedDifficulty && selectedRounds) {
+            const game = new Game(canvas, selectedDifficulty, selectedRounds);
+            difficultySelector.remove();
+            roundsSelector.remove();
+            startButton.remove();
+            game.start();
+        }
+    });
+
+    // Helper function to update difficulty button styles
+    function updateDifficultySelection(selectedButton) {
+        const difficultyButtons = difficultySelector.querySelectorAll('button');
+        difficultyButtons.forEach(button => button.classList.remove('selected'));
+        selectedButton.classList.add('selected');
+    }
+
+    // Helper function to enable/disable start button
+    function checkStartButtonState() {
+        if (selectedDifficulty && selectedRounds) {
+            startButton.disabled = false;
+        } else {
+            startButton.disabled = true;
+        }
+    }
+
+</script>
+</html>

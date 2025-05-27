@@ -8,12 +8,17 @@ export class Terminal {
       this.promptColor = "white";
       this.isFirstLoad = true;
   
+      this.commandHistory = [];
+      this.currentHistoryIndex = -1;
+
+      // Initialize commands
       this.commands = {
-        whoami: "I am a chill guy who's into computers.",
+        help: "Available commands: whoami, projects, clear, color [green|white|red], game [ping-pong], help",
+        whoami: "I am a chill guy who's into programming...",
         projects: this.navigateToProjects.bind(this),
-        help: "Available commands: whoami, projects, clear, color [green|white|red], help",
         clear: this.clearTerminal.bind(this),
         color: this.changePromptColor.bind(this),
+        game: this.initializeGame.bind(this),
       };
       
       // Bind the input event listener
@@ -31,7 +36,28 @@ export class Terminal {
         if (output) this.terminalOutput.innerHTML += `<div>${output}</div>`;
   
         this.terminalInput.value = "";
-        this.terminalOutput.scrollTop = this.terminalOutput.scrollHeight;
+        this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
+
+        // Save command to history
+        if (input) {
+          this.commandHistory.push(input);
+          this.currentHistoryIndex = this.commandHistory.length;
+        }
+      } else if (event.key === "ArrowUp") {
+        // Navigate command history with Arrow Up
+        if (this.currentHistoryIndex > 0) {
+          this.currentHistoryIndex--;
+          this.terminalInput.value = this.commandHistory[this.currentHistoryIndex] || "";
+        }
+      } else if (event.key === "ArrowDown") {
+        // Navigate command history with Arrow Down
+        if (this.currentHistoryIndex < this.commandHistory.length - 1) {
+          this.currentHistoryIndex++;
+          this.terminalInput.value = this.commandHistory[this.currentHistoryIndex] || "";
+        } else {
+          this.currentHistoryIndex = this.commandHistory.length; // Reset to the end
+          this.terminalInput.value = "";
+        }
       }
     }
   
@@ -74,6 +100,19 @@ export class Terminal {
       }
     }    
   
+    // Initializes the game if available
+    initializeGame(game) {
+      if (game === "ping-pong") {
+        setTimeout(() => {
+          window.open("/ping-pong.html", "_blank");
+        }, 1500); 
+        return `Initializing game...`;
+      } else {
+        return `Game not found: ${game}`;
+      }
+
+    }
+
     // Simulates typing effect for initial load
     typeEffect(text, callback) {
       let i = 0;
