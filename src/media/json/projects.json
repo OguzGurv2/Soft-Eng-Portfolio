@@ -1,0 +1,34 @@
+{
+    "projects": [
+        {
+        "name": "HIIT Hustle",
+        "description":"A web application designed to help users create and manage their own HIIT workouts, with features for tracking progress and sharing routines.",
+        "html_url": "https://github.com/OguzGurv2/HIIT-Hustle",
+        "img_url": "./src/media/icons/hiit-hustle.svg"
+        },
+        {
+            "name": "This Portfolio",
+            "description":"A personal portfolio website showcasing my projects and skills, built with HTML, CSS, and JavaScript.",
+            "html_url": "https://github.com/OguzGurv2/Soft-Eng-Portfolio",
+            "img_url": "./src/media/icons/portfolio.png"
+        },
+        {
+            "name": "Society Calendar Application for University of Portsmouth",
+            "description": "A web application for managing society events at the University of Portsmouth, allowing users to view, create, and manage events.",
+            "html_url": "https://github.com/OguzGurv2/Society-Calendar-Web-App",
+            "img_url": "./src/media/icons/society-calendar.png"
+        },
+        {
+            "name": "Weather App",
+            "description": "A simple weather application that provides current weather information and forecasts for any location, using a public API and Pyhton back-end.",
+            "html_url": "https://github.com/OguzGurv2/Python-Weather-App",
+            "img_url": "./src/media/icons/weather-app.png"
+        },
+        {
+            "name": "Virtual Cat Shelter",
+            "description": "A web application that is an imitation of 90s Tamagotchi games which simulates a virtual cat shelter, allowing users to adopt, care for, and interact with virtual cats.",
+            "html_url": "https://github.com/OguzGurv2/Virtual-Cat-Shelter",
+            "img_url": "./src/media/icons/virtual-cat-shelter.svg"
+        }
+    ]
+}

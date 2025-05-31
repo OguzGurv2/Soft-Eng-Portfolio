@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 296.3 319.6">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #b17261;
+      }
+
+      .st0, .st1, .st2 {
+        stroke: #000;
+      }
+
+      .st0, .st2 {
+        stroke-linejoin: round;
+      }
+
+      .st3 {
+        fill: #11823b;
+      }
+
+      .st1 {
+        fill-opacity: 0;
+      }
+
+      .st2 {
+        fill: #ff9a00;
+      }
+
+      .st4 {
+        fill: #ff7400;
+        isolation: isolate;
+        opacity: .6;
+      }
+    </style>
+  </defs>
+  <g id="ears">
+    <g id="right-ear">
+      <path id="right-ear1" data-name="right-ear" class="st2" d="M11.3,10l281.4,168.9H11.3V10"/>
+    </g>
+  </g>
+  <path id="ear-shadow" class="st4" d="M18.3,94.5V24.1l56.3,31.7-56.3,38.7"/>
+  <g id="ears1" data-name="ears">
+    <g id="right-ear2" data-name="right-ear">
+      <path id="right-ear3" data-name="right-ear" class="st2" d="M292.7,10v168.9H11.3S292.7,10,292.7,10"/>
+    </g>
+  </g>
+  <path id="ear-shadow1" data-name="ear-shadow" class="st4" d="M285.7,94.5l-56.3-38.7,56.3-31.7v70.4"/>
+  <circle class="st2" cx="152" cy="178.9" r="140.7"/>
+  <ellipse id="nose" class="st0" cx="152" cy="207" rx="21.1" ry="14.1"/>
+  <g id="mouth">
+    <path id="right-mouth" class="st1" d="M152,221.1c-14.1,42.2-42.2,42.2-63.3,14.1"/>
+  </g>
+  <g id="mouth1" data-name="mouth">
+    <path id="right-mouth1" data-name="right-mouth" class="st1" d="M215.3,235.2c-21.1,28.1-49.2,28.1-63.3-14.1"/>
+  </g>
+  <circle class="st3" cx="81.3" cy="164.8" r="21.9"/>
+  <circle class="st3" cx="215.3" cy="164.8" r="21.9"/>
+</svg>
