@@ -149,8 +149,77 @@
           <a href="https://docs.google.com/document/d/1A6h73F066BNoEAgG6KNP5KhlzzMvQGVvAUbU9G097-w/edit?usp=sharing" target="_blank" class="cta third">
             <span>Get My Resume</span>
             <img width="19px" src="./src/media/icons/arrow-right.svg" />
-          </a>
-          
+          </a>  
+        </div>
+
+        <div class="skills">
+          <div class="row">
+            <h2>
+              <div class="mark"></div>
+              Skills
+            </h2>
+          </div>
+
+          <p>Programming Languages</p>
+          <div>
+            <a class="cta third">
+              <span>HTML</span>
+            </a>
+            <a class="cta third">
+              <span>CSS</span>
+            </a>
+            <a class="cta third">
+              <span>JavaScript</span>
+            </a>
+            <a class="cta third">
+              <span>PHP</span>
+            </a>
+            <a class="cta third">
+              <span>Node.js</span>
+            </a>
+            <a class="cta third">
+              <span>Python</span>
+            </a>
+          </div>
+
+          <p>Frameworks & Libraries</p>
+          <div>
+            <a class="cta third">
+              <span>GraphQL</span>
+            </a>
+            <a class="cta third">
+              <span>Express.js</span>
+            </a>
+            <a class="cta third">
+              <span>Flask</span>
+            </a>
+          </div>
+
+          <p>Databases</p>
+          <div>
+            <a class="cta third">
+              <span>PostgreSQL</span>
+            </a>
+            <a class="cta third">
+              <span>SQLite</span>
+            </a>
+          </div>
+
+          <p>Project Management & Design</p>
+          <div>
+            <a class="cta third">
+              <span>Trello</span>
+            </a>
+            <a class="cta third">
+              <span>Jira</span>
+            </a>
+            <a class="cta third">
+              <span>LucidCharts</span>
+            </a>
+            <a class="cta third">
+              <span>draw.io</span>
+            </a>
+          </div>
         </div>
 
       </section>
@@ -166,13 +235,14 @@
         <div class="section-title">Let's Connect</div>
         <form action="send-email.php" method="POST">
           <div class="row">
-            <input type="text" name="name" id="name" placeholder="Name" />
-            <input type="email" name="email" id="email" placeholder="Email" />
+            <input type="text" name="name" id="name" placeholder="Name" maxlength="50"/>
+            <input type="email" name="email" id="email" placeholder="Email" maxlength="50"/>
           </div>
           <textarea
             name="message"
             id="message"
             placeholder="Message"
+            maxlength="500"
           ></textarea>
           <button id="submit" type="submit">Submit</button>
         </form>
@@ -200,8 +270,12 @@
           </div>
         </div>
       </section>
-    </main>
 
+    </main>
+    
+    <footer>
+      All rights reserved &copy; 2025 Oguz Gur
+    </footer>
     <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>
