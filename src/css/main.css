@@ -453,6 +453,7 @@ section .project-container {
 .skills > div {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
