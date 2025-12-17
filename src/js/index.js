@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 async function bindElements() {
   try {
+
+    // Determine if the device is mobile based on window width
+    el.isMobile = window.innerWidth <= 768;
+    console.log("Is Mobile:", el.isMobile);
     // Bind navigation icon elements
     el.navIcons = document.querySelectorAll(".nav-icon");
 
@@ -74,6 +78,9 @@ function attachEventListeners() {
   el.navIcons.forEach((link) => {
     // Click event for navigation selection
     link.addEventListener("click", handleNavSelection);
+
+    if (el.isMobile) return; // Do not apply hover effects on mobile devices
+    
     // Hover event to highlight navigation icons
     link.addEventListener("mouseover", handleNavHover);
     link.addEventListener("mouseout", handleNavHover);

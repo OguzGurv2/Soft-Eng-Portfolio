@@ -86,13 +86,13 @@ li {
 }
 
 .navbar ul li a:hover {
-  background-color: var(--grey-4);
+  background-color: var(--grey-4); 
   box-shadow: 0 0 8px #00000020;
 }
 
 .navbar ul li a.active {
-  background-color: var(--grey-3);
-  box-shadow: 0 0 8px #00000020;
+  background-color: var(--grey-3) !important;
+  box-shadow: 0 0 8px #00000020 !important;
 }
 
 .navbar .nav-text {
@@ -598,17 +598,37 @@ footer {
 
 @media (max-width: 768px) {
   #projects .project-container .project .row .project-text .project_description {
-    -webkit-line-clamp: 3; 
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    line-height: normal;
     font-size: 12px !important;
+    line-height: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    height: 60px;
   }
 
 
   #projects .project-container .project .row .project-text .project_title {
+    width: 150px;
+    height: 30px;
     font-size: 16px;
+    overflow: hidden;
+    text-wrap-mode: nowrap;
+    text-overflow: ellipsis;
   }
-  
+
+  .nav-bar > a {
+    width: max-content;
+  }
+
+
+  .navbar ul li a:hover {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .hero-terminal pre, .input-line span, #terminal-input  {
+    font-size: 10px;
+  }
 }

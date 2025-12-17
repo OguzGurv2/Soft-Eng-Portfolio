@@ -1,281 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OG | Home</title>
-    <link rel="stylesheet" href="./src/css/main.css" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/src/media/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/media/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/src/media/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/src/media/favicon/site.webmanifest">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-    <div class="hide"></div>
-    <nav class="navbar">
-      <ul>
-        <li>
-          <a data-hover="home" class="nav-icon active" href="#hero"
-            ><img src="./src/media/icons/home.svg" alt=""
-          /></a>
-        </li>
-        <li id="home-text" class="nav-text">
-          <p>Home</p>
-        </li>
 
-        <li>
-          <a data-hover="projects" class="nav-icon" href="#projects"
-            ><img src="./src/media/icons/projects.svg" alt=""
-          /></a>
-        </li>
-        <li id="projects-text" class="nav-text">
-          <p>Projects</p>
-        </li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG | Home</title>
+  <link rel="stylesheet" href="./src/css/main.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/src/media/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/src/media/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/src/media/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/src/media/favicon/site.webmanifest">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
 
-        <li></li>
-        <li>
-          <a data-hover="about" class="nav-icon" href="#about"
-            ><img src="./src/media/icons/about.svg" alt=""
-          /></a>
-        </li>
-        <li id="about-text" class="nav-text">
-          <p>About</p>
-        </li>
+<body>
+  <div class="hide"></div>
+  <nav class="navbar">
+    <ul>
+      <li>
+        <a data-hover="home" class="nav-icon active" href="#hero"><img src="./src/media/icons/home.svg" alt="" /></a>
+      </li>
+      <li id="home-text" class="nav-text">
+        <p>Home</p>
+      </li>
 
-        <li></li>
-        <li>
-          <a data-hover="contact" class="nav-icon" href="#contact"
-            ><img src="./src/media/icons/contact.svg" alt=""
-          /></a>
-        </li>
-        <li id="contact-text" class="nav-text">
-          <p>Contact</p>
-        </li>
+      <li>
+        <a data-hover="projects" class="nav-icon" href="#projects"><img src="./src/media/icons/projects.svg"
+            alt="" /></a>
+      </li>
+      <li id="projects-text" class="nav-text">
+        <p>Projects</p>
+      </li>
 
-        <li></li>
-      </ul>
+      <li></li>
+      <li>
+        <a data-hover="about" class="nav-icon" href="#about"><img src="./src/media/icons/about.svg" alt="" /></a>
+      </li>
+      <li id="about-text" class="nav-text">
+        <p>About</p>
+      </li>
 
-      <a href="#contact" class="cta">
-        <img width="19px" src="./src/media/icons/plus.svg" />
-        <span>Contact Me</span>
-      </a>
-    </nav>
+      <li></li>
+      <li>
+        <a data-hover="contact" class="nav-icon" href="#contact"><img src="./src/media/icons/contact.svg" alt="" /></a>
+      </li>
+      <li id="contact-text" class="nav-text">
+        <p>Contact</p>
+      </li>
 
-    <main id="hero" class="hero">
-      <div id="home" class="hero-content observe">
-        <h1>I'm Oguz Gur</h1>
-        <p>
-          A final-year Software Engineering student at the University of Portsmouth, 
-          passionate about cutting-edge technology. Skilled in software development, 
-          data analysis, and machine learning, with a strong foundation in JavaScript, 
-          Python, and full-stack development.
-        </p>
-        <div class="social-links">
-          <a href="#contact" class="cta">
-            <img width="19px" src="./src/media/icons/plus.svg" />
-            <span>Contact Me</span>
+      <li></li>
+    </ul>
+
+    <a href="#contact" class="cta">
+      <img width="19px" src="./src/media/icons/plus.svg" />
+      <span>Contact Me</span>
+    </a>
+  </nav>
+
+  <main id="hero" class="hero">
+    <div id="home" class="hero-content observe">
+      <h1>I'm Oguz Gur</h1>
+      <p>
+        A First Class BSc (Hons) Software Engineering graduate from the University of Portsmouth, with a strong
+        foundation in software development, data analysis, and machine learning. Passionate about cutting-edge
+        technology and building innovative solutions that make a real impact.
+      </p>
+      <div class="social-links">
+        <a href="#contact" class="cta">
+          <img width="19px" src="./src/media/icons/plus.svg" />
+          <span>Contact Me</span>
+        </a>
+
+        <a id="copy-email" class="cta secondary">
+          <img width="19px" src="./src/media/icons/copy-link.svg" />
+          <span>Copy Email</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="terminal-body">
+        <pre id="terminal-output"></pre>
+        <div class="input-line">
+          <span>root@oguzgur.com ~ % </span>
+          <input value="" autocomplete="off" type="text" id="terminal-input" />
+        </div>
+      </div>
+    </div>
+
+    <section id="projects" class="observe">
+      <div class="row">
+        <h2>
+          <div class="mark"></div>
+          Projects
+        </h2>
+
+        <a href="https://github.com/OguzGurv2?tab=repositories" class="cta">
+          <span>View All</span>
+          <img width="19px" src="./src/media/icons/arrow-right.svg" />
+        </a>
+      </div>
+
+      <div class="project-container"></div>
+    </section>
+
+    <section id="about" class="observe">
+      <div class="row">
+        <h2>
+          <div class="mark"></div>
+          About Me
+        </h2>
+      </div>
+
+      <div class="section-title">I'm Oguz</div>
+
+      <p>
+        A First Class BSc (Hons) Software Engineering graduate from the University of Portsmouth, with a strong
+        foundation in software development, data analysis, and machine learning. Passionate about cutting-edge
+        technology and building innovative solutions that make a real impact. Skilled in JavaScript, Python, and
+        full-stack development, with experience working on collaborative projects that combine creativity,
+        problem-solving, and technical precision.
+      </p>
+
+      <div class="social-links">
+        <a href="https://drive.google.com/drive/folders/10_nxF9J2_xpOEKAHO7yoktusQXvNcXkJ?usp=sharing" target="_blank"
+          class="cta">
+          <img width="19px" src="./src/media/icons/certificates.svg" />
+          <span>Certificates</span>
+        </a>
+
+        <a href="https://docs.google.com/document/d/1A6h73F066BNoEAgG6KNP5KhlzzMvQGVvAUbU9G097-w/edit?usp=sharing"
+          target="_blank" class="cta third">
+          <span>Get My Resume</span>
+          <img width="19px" src="./src/media/icons/arrow-right.svg" />
+        </a>
+      </div>
+
+      <div class="skills">
+        <div class="row">
+          <h2>
+            <div class="mark"></div>
+            Skills
+          </h2>
+        </div>
+
+        <p>Programming Languages</p>
+        <div>
+          <a class="cta third">
+            <span>HTML</span>
           </a>
+          <a class="cta third">
+            <span>CSS</span>
+          </a>
+          <a class="cta third">
+            <span>JavaScript</span>
+          </a>
+          <a class="cta third">
+            <span>PHP</span>
+          </a>
+          <a class="cta third">
+            <span>Node.js</span>
+          </a>
+          <a class="cta third">
+            <span>Python</span>
+          </a>
+        </div>
 
-          <a id="copy-email" class="cta secondary">
-            <img width="19px" src="./src/media/icons/copy-link.svg" />
-            <span>Copy Email</span>
+        <p>Frameworks & Libraries</p>
+        <div>
+          <a class="cta third">
+            <span>GraphQL</span>
+          </a>
+          <a class="cta third">
+            <span>Express.js</span>
+          </a>
+          <a class="cta third">
+            <span>Flask</span>
+          </a>
+        </div>
+
+        <p>Databases</p>
+        <div>
+          <a class="cta third">
+            <span>PostgreSQL</span>
+          </a>
+          <a class="cta third">
+            <span>SQLite</span>
+          </a>
+        </div>
+
+        <p>Project Management & Design</p>
+        <div>
+          <a class="cta third">
+            <span>Trello</span>
+          </a>
+          <a class="cta third">
+            <span>Jira</span>
+          </a>
+          <a class="cta third">
+            <span>LucidCharts</span>
+          </a>
+          <a class="cta third">
+            <span>draw.io</span>
           </a>
         </div>
       </div>
 
-      <div class="hero-terminal">
-        <div class="terminal-header">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-        </div>
-        <div class="terminal-body">
-          <pre id="terminal-output"></pre>
-          <div class="input-line">
-            <span>root@oguzgur.com ~ % </span>
-            <input
-              value=""
-              autocomplete="off"
-              type="text"
-              id="terminal-input"
-            />
-          </div>
-        </div>
+    </section>
+
+    <section id="contact" class="observe">
+      <div class="row">
+        <h2>
+          <div class="mark"></div>
+          Contact Me
+        </h2>
       </div>
 
-      <section id="projects" class="observe">
+      <div class="section-title">Let's Connect</div>
+      <form action="send-email.php" method="POST">
         <div class="row">
-          <h2>
-            <div class="mark"></div>
-            Projects
-          </h2>
-
-          <a href="https://github.com/OguzGurv2?tab=repositories" class="cta">
-            <span>View All</span>
-            <img width="19px" src="./src/media/icons/arrow-right.svg" />
-          </a>
+          <input type="text" name="name" id="name" placeholder="Name" maxlength="50" />
+          <input type="email" name="email" id="email" placeholder="Email" maxlength="50" />
         </div>
+        <textarea name="message" id="message" placeholder="Message" maxlength="500"></textarea>
+        <button id="submit" type="submit">Submit</button>
+      </form>
+    </section>
 
-        <div class="project-container"></div>
-      </section>
-
-      <section id="about" class="observe">
-        <div class="row">
-          <h2>
-            <div class="mark"></div>
-            About Me
-          </h2>
-        </div>
-
-        <div class="section-title">I'm Oguz</div>
-
-        <p>
-          A final-year Software Engineering student at the University of Portsmouth 
-          predicted to graduate with First Class Honours. With a keen interest in 
-          cutting-edge technology and a strong foundation in software development, 
-          data analysis, and machine learning. Skilled in JavaScript, Python, and 
-          full-stack development, seeking a graduate opportunity to leverage technical 
-          expertise, problem-solving abilities, and collaborative approach to drive 
-          impactful results and contribute meaningfully to a team in the computing sector.
-        </p>
+    <section id="follow">
+      <div class="row">
+        <h2>
+          <div class="mark"></div>
+          Follow Me
+        </h2>
 
         <div class="social-links">
-          <a href="https://drive.google.com/drive/folders/10_nxF9J2_xpOEKAHO7yoktusQXvNcXkJ?usp=sharing" target="_blank" class="cta">
-            <img width="19px" src="./src/media/icons/certificates.svg" />
-            <span>Certificates</span>
+          <a href="https://www.instagram.com/ouzdotexe/" target="_blank" class="social-icon">
+            <img width="24px" src="./src/media/icons/instagram.svg" />
           </a>
 
-          <a href="https://docs.google.com/document/d/1A6h73F066BNoEAgG6KNP5KhlzzMvQGVvAUbU9G097-w/edit?usp=sharing" target="_blank" class="cta third">
-            <span>Get My Resume</span>
-            <img width="19px" src="./src/media/icons/arrow-right.svg" />
-          </a>  
+          <a href="https://www.linkedin.com/in/oguz-gur/" target="_blank" class="social-icon">
+            <img width="24px" src="./src/media/icons/linkedin.svg" />
+          </a>
+
+          <a href="https://github.com/OguzGurv2?tab=repositories" target="_blank" class="social-icon">
+            <img width="24px" src="./src/media/icons/github.svg" />
+          </a>
         </div>
+      </div>
+    </section>
 
-        <div class="skills">
-          <div class="row">
-            <h2>
-              <div class="mark"></div>
-              Skills
-            </h2>
-          </div>
+  </main>
 
-          <p>Programming Languages</p>
-          <div>
-            <a class="cta third">
-              <span>HTML</span>
-            </a>
-            <a class="cta third">
-              <span>CSS</span>
-            </a>
-            <a class="cta third">
-              <span>JavaScript</span>
-            </a>
-            <a class="cta third">
-              <span>PHP</span>
-            </a>
-            <a class="cta third">
-              <span>Node.js</span>
-            </a>
-            <a class="cta third">
-              <span>Python</span>
-            </a>
-          </div>
+  <footer>
+    All rights reserved &copy; 2025 Oguz Gur
+  </footer>
+  <script type="module" src="./src/js/index.js"></script>
+</body>
 
-          <p>Frameworks & Libraries</p>
-          <div>
-            <a class="cta third">
-              <span>GraphQL</span>
-            </a>
-            <a class="cta third">
-              <span>Express.js</span>
-            </a>
-            <a class="cta third">
-              <span>Flask</span>
-            </a>
-          </div>
-
-          <p>Databases</p>
-          <div>
-            <a class="cta third">
-              <span>PostgreSQL</span>
-            </a>
-            <a class="cta third">
-              <span>SQLite</span>
-            </a>
-          </div>
-
-          <p>Project Management & Design</p>
-          <div>
-            <a class="cta third">
-              <span>Trello</span>
-            </a>
-            <a class="cta third">
-              <span>Jira</span>
-            </a>
-            <a class="cta third">
-              <span>LucidCharts</span>
-            </a>
-            <a class="cta third">
-              <span>draw.io</span>
-            </a>
-          </div>
-        </div>
-
-      </section>
-
-      <section id="contact" class="observe">
-        <div class="row">
-          <h2>
-            <div class="mark"></div>
-            Contact Me
-          </h2>
-        </div>
-
-        <div class="section-title">Let's Connect</div>
-        <form action="send-email.php" method="POST">
-          <div class="row">
-            <input type="text" name="name" id="name" placeholder="Name" maxlength="50"/>
-            <input type="email" name="email" id="email" placeholder="Email" maxlength="50"/>
-          </div>
-          <textarea
-            name="message"
-            id="message"
-            placeholder="Message"
-            maxlength="500"
-          ></textarea>
-          <button id="submit" type="submit">Submit</button>
-        </form>
-      </section>
-
-      <section id="follow">
-        <div class="row">
-          <h2>
-            <div class="mark"></div>
-            Follow Me
-          </h2>
-
-          <div class="social-links">
-            <a href="https://www.instagram.com/ouzdotexe/" target="_blank" class="social-icon">
-              <img width="24px" src="./src/media/icons/instagram.svg" />
-            </a>
-
-            <a href="https://www.linkedin.com/in/oguz-gur/" target="_blank" class="social-icon">
-              <img width="24px" src="./src/media/icons/linkedin.svg" />
-            </a>
-
-            <a href="https://github.com/OguzGurv2?tab=repositories" target="_blank" class="social-icon">
-              <img width="24px" src="./src/media/icons/github.svg" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-    </main>
-    
-    <footer>
-      All rights reserved &copy; 2025 Oguz Gur
-    </footer>
-    <script type="module" src="./src/js/index.js"></script>
-  </body>
 </html>
