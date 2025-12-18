@@ -7,6 +7,12 @@
         "img_url": "./src/media/icons/HIIT-Hustle.svg"
         },
         {
+            "name": "Virtual Cat Shelter",
+            "description": "A web application that is an imitation of 90s Tamagotchi games which simulates a virtual cat shelter, allowing users to adopt, care for, and interact with virtual cats.",
+            "html_url": "https://github.com/OguzGurv2/Virtual-Cat-Shelter-V2.0.0",
+            "img_url": "./src/media/icons/virtual-cat-shelter.svg"
+        },
+        {
             "name": "This Portfolio",
             "description":"A personal portfolio website showcasing my projects and skills, built with HTML, CSS, and JavaScript.",
             "html_url": "https://github.com/OguzGurv2/Soft-Eng-Portfolio",
@@ -21,14 +27,8 @@
         {
             "name": "Weather App",
             "description": "A simple weather application that provides current weather information and forecasts for any location, using a public API and Pyhton back-end.",
-            "html_url": "https://github.com/OguzGurv2/Python-Weather-App",
+            "html_url": "https://github.com/OguzGurv2/Python-Weather-App-2.0.0",
             "img_url": "./src/media/icons/weather-app.png"
-        },
-        {
-            "name": "Virtual Cat Shelter",
-            "description": "A web application that is an imitation of 90s Tamagotchi games which simulates a virtual cat shelter, allowing users to adopt, care for, and interact with virtual cats.",
-            "html_url": "https://github.com/OguzGurv2/Virtual-Cat-Shelter",
-            "img_url": "./src/media/icons/virtual-cat-shelter.svg"
         }
     ]
 }
